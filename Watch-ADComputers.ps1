@@ -31,7 +31,7 @@ After every run, Audit.txt automatically opens in Notepad.
 # String. Supplies the path for the main directory.
 $ADComputerAuditDir = ""
 
-# String. Supplies the argument for Get-ADGroup's -SearchBase parameter in the script.
+# String. Supplies the argument for Get-ADComputer's -SearchBase parameter in the script.
 $Location = ""
 
 # Create main directory
