@@ -39,7 +39,7 @@ if (!(Test-Path -Path $ADGroupAuditDir)) {
 }
 
 # Create snapshot directory
-$SnapshotDir = "$ADGroupAuditDir\Snapshot History"
+$SnapshotDir = Join-Path -Path $ADGroupAuditDir -ChildPath "Snapshot History"
 if (!(Test-Path -Path $SnapshotDir)) {
     New-Item $SnapshotDir -ItemType Directory
 }
@@ -68,19 +68,19 @@ $GroupsAuditData = ForEach ($Group in $ADGroups) {
 
 # Create snapshot file
 $DateSignature = Get-Date -UFormat %m%d%y 
-$SnapshotPath = "$SnapshotDir\Snapshot$DateSignature.csv"
+$SnapshotPath = Join-Path -Path $SnapshotDir -ChildPath "Snapshot$DateSignature.csv"
 if (Test-Path -Path $SnapshotPath) {
     $J = 0
     do {
         $J++
-        $SnapshotPath = "$SnapshotDir\Snapshot$DateSignature($J).csv"
+        $SnapshotPath = Join-Path -Path $SnapshotDir -ChildPath "Snapshot$DateSignature($I).csv"
     } while (Test-Path -Path $SnapshotPath)
 } 
 $GroupsAuditData | Export-Csv -Path $SnapshotPath -NoTypeInformation 
 
 # Create audit file
 $Date = (Get-Date).ToString()
-$AuditFilePath = "$ADGroupAuditDir\Audit.txt"
+$AuditFilePath = Join-Path -Path $ADGroupAuditDir -ChildPath "Audit.txt"
 if (!(Test-Path -Path $AuditFilePath)) { 
     "AUDIT FILE CREATED: $Date`r`n" | Out-File -FilePath $AuditFilePath      
 }
@@ -97,7 +97,7 @@ $Timestamp = Get-Date -Format o
 "Audit performed by $env:Username on $Timestamp" | Out-File @AuditFileParams 
 
 # If reference file exists, import its data and compare
-$RefFilePath = "$ADGroupAuditDir\ReferenceData.csv"
+$RefFilePath = Join-Path -Path $ADGroupAuditDir -ChildPath "ReferenceData.csv"
 if (Test-Path -Path $RefFilePath) {
     # Import reference data
     $RefData = Import-Csv -Path $RefFilePath
