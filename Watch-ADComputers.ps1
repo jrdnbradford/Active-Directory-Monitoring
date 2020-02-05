@@ -109,8 +109,8 @@ if (Test-Path -Path $RefFilePath) {
       "ReferenceData.csv does not exist. No comparison was made.`r`n" | Out-File @AuditFileParams
 }
 
-# Open audit file in Notepad
-Notepad $AuditFilePath 
+# Open audit file
+Invoke-Item $AuditFilePath 
  
 # Create/overwrite reference data file
 $ADComputersData | Export-Csv -Path $RefFilePath -NoTypeInformation 

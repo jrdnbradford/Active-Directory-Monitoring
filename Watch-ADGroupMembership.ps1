@@ -125,8 +125,8 @@ if (Test-Path -Path $RefFilePath) {
       Out-File @AuditFileParams
 }
 
-# Open audit file in Notepad
-Notepad $AuditFilePath 
+# Open audit file
+Invoke-Item $AuditFilePath 
  
 # Create/overwrite reference data file
 $GroupsAuditData | Export-Csv -Path $RefFilePath -NoTypeInformation
