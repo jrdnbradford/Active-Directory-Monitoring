@@ -73,7 +73,7 @@ if (Test-Path -Path $SnapshotPath) {
     $J = 0
     do {
         $J++
-        $SnapshotPath = Join-Path -Path $SnapshotDir -ChildPath "Snapshot$DateSignature($I).csv"
+        $SnapshotPath = Join-Path -Path $SnapshotDir -ChildPath "Snapshot$DateSignature($J).csv"
     } while (Test-Path -Path $SnapshotPath)
 } 
 $GroupsAuditData | Export-Csv -Path $SnapshotPath -NoTypeInformation 
